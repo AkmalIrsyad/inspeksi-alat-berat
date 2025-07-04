@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ChecklistItem extends Model
+class PersetujuanInspeksi extends Model
 {
     //
 }

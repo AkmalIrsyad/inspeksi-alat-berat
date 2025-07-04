@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('inspection_approvals', function (Blueprint $table) {
+        Schema::create('persetujuan_inspeksis', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('inspection_id')->constrained()->onDelete('cascade'); // Relasi ke inspections
+            $table->foreignId('inspeksis_id')->constrained('inspeksis')->onDelete('cascade'); // Relasi ke inspections
             $table->foreignId('supervisor_id')->constrained('users')->onDelete('cascade'); // Relasi ke users (supervisor)
             $table->enum('status', ['Approved', 'Rejected', 'Pending'])->default('Pending');
             $table->text('notes')->nullable(); // Catatan dari supervisor
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('inspection_approvals');
+        Schema::dropIfExists('persetujuan_inspeksis');
     }
 };

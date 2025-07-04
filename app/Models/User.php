@@ -5,12 +5,11 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory;
 
     /**
      * The attributes that are mass assignable.
@@ -22,6 +21,7 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
+        'foto',
     ];
 
     /**
@@ -46,13 +46,15 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-    public function inspections()
+
+    public function inspeksi()
     {
-        return $this->hasMany(Inspection::class);
+        return $this->hasMany(Inspeksi::class);
     }
 
-    public function inspectionApprovals()
+    public function persetujuanInspeksi()
     {
-        return $this->hasMany(InspectionApproval::class, 'supervisor_id');
+        return $this->hasMany(PersetujuanInspeksi::class, 'supervisor_id');
     }
+
 }
