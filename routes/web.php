@@ -28,7 +28,6 @@ Route::get('login/keluar',[LoginController::class,'keluar'])->name('login.keluar
 
 Route::prefix('inspector')->middleware(['auth', RoleMiddleware::class . ':inspector'])->group(function () {
     Route::get('/inspector', [InspectorController::class, 'index'])->name('inspektor.index');
-
     Route::get('/inspeksi',function(){
         return view('inspektor.inspeksi.index');
     })->name('inspeksi');
@@ -38,7 +37,7 @@ Route::prefix('inspector')->middleware(['auth', RoleMiddleware::class . ':inspec
     })->name('inspeksi.create');
 
     Route::get('/inspeksi/{id}', [InspeksiController::class, 'show'])->name('inspeksi.detail');
-
+    Route::get('/inspeksi/{id}/export-pdf',[InspeksiController::class,'exportPdf'])->name('inspector.inspeksi.exportPdf');
     Route::get('/profile/edit', function(){
         return view('inspektor.profile.edit');
     })->name('inspektor.profile.edit');

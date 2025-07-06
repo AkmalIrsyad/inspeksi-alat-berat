@@ -13,6 +13,7 @@ class KomponenComponent extends Component
     use WithPagination,WithoutUrlPagination;
 
     public $addPage,$editPage = false;
+    public $komponens = [['name' => '']];
     public $name, $alatBerats_id;
     public function render()
     {
@@ -25,21 +26,36 @@ class KomponenComponent extends Component
         $this->addPage = true;
     }
 
+    public function addField()
+    {
+    $this->komponens[] = ['name' => ''];
+    }
+
+    public function removeField($index)
+{
+    unset($this->komponens[$index]);
+    $this->komponens = array_values($this->komponens); // reset index
+}
+
     public function store()
     {
-        $this->validate([
-            'name'=>'required',
-        ],[
-            'name.required'=>'Nama Komponen Tidak Boleh Kosong',
-        ]);
-        Komponen::create([
-            'alat_berats_id'=>$this->alatBerats_id,
-            'name'=>$this->name,
-        ]);
+      $this->validate([
+        'komponens.*.name' => 'required',
+    ], [
+        'komponens.*.name.required' => 'Nama Komponen tidak boleh kosong',
+    ]);
 
-        session()->flash('success','Komponen Berhasil Disimpan');
-        $this->dispatch('lihat-komponen');
-        $this->reset();
+    foreach ($this->komponens as $komponen) {
+        Komponen::create([
+            'alat_berats_id' => $this->alatBerats_id,
+            'name' => $komponen['name'],
+        ]);
+    }
+
+    session()->flash('success', 'Semua Komponen berhasil disimpan.');
+    $this->dispatch('lihat-komponen');
+    $this->reset(['komponens']);
+    $this->komponens = [['name' => '']];
     }
 
     public function lihat()

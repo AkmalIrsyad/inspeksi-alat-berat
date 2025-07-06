@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Inspeksi;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Auth;
 
 class InspeksiController extends Controller
@@ -18,5 +19,13 @@ class InspeksiController extends Controller
     }
 
     return view('inspektor.inspeksi.detail', compact('inspeksi'));
+}
+    public function exportPdf($id)
+{
+    $inspeksi = Inspeksi::with(['user', 'alatBerat', 'komponens'])->findOrFail($id);
+
+    $pdf = Pdf::loadView('inspektor.inspeksi.export', compact('inspeksi'));
+
+    return $pdf->download('Inspeksi-' . $inspeksi->id . '.pdf');
 }
 }

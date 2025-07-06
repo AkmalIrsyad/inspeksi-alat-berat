@@ -7,7 +7,7 @@
                         {{ session('success') }}
                     </div>
                 @endif
-                <h6 class="mb-4">Data Users</h6>
+                <h6 class="mb-4">Alat Berat</h6>
                 <table class="table">
                     <thead>
                         <tr>

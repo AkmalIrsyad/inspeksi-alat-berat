@@ -1,4 +1,6 @@
-{{-- Alert Success --}}
+<div class="container-fluid">
+    <div class="row justify-content-center">
+            {{-- Alert Success --}}
 @if (session()->has('success'))
 <div class="alert alert-success alert-dismissible fade show mb-4" role="alert">
     <i class="fas fa-check-circle me-2"></i>
@@ -6,9 +8,6 @@
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
 @endif
-
-<div class="container-fluid">
-    <div class="row justify-content-center">
         <div class="col-lg-12 col-md-10">
             <div class="card shadow">
                 <div class="card-header bg-primary text-white">

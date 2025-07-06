@@ -18,7 +18,7 @@ class UsersComponent extends Component
     public $name,$email,$password,$role,$id,$foto;
     public function render()
     {
-        $data['user']= User::paginate(2);
+        $data['user']= User::paginate(5);
         return view('livewire.users-component', $data);
     }
     public function create()
@@ -56,8 +56,6 @@ class UsersComponent extends Component
         $this->reset();
     }
     public function destroy($id){
-        // $cari=User::find($id);
-        // $cari->delete();
         $users = User::find($id);
         unlink(public_path('storage/users/'.$users->foto));
         $users->delete();
@@ -93,20 +91,7 @@ class UsersComponent extends Component
                 'foto' => $this->foto->hashName()
             ]);
         }
-        // if ($this->password=="") {
-        //     $cari->update([
-        //         'name'=>$this->name,
-        //         'email'=>$this->email,
-        //         'role' =>$this->role
-        //     ]);
-        // }else{
-        //     $cari->update([
-        //         'name'=>$this->name,
-        //         'email'=>$this->email,
-        //         'password'=>Hash::make($this->password),
-        //         'role' =>$this->role
-        //     ]);
-        // }
+
         session()->flash('success','Berhasil Ubah Data!');
         $this->reset();
     }

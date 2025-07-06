@@ -8,7 +8,7 @@ class InspectorController extends Controller
 {
     public function index()
     {
-        
+
         return view('inspektor.index');
     }
 }

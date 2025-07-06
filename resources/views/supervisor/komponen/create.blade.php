@@ -1,22 +1,28 @@
-<div class="container-fluid pt-4 px-4"></div>
+<div class="container-fluid pt-4 px-4">
+    <div class="col-sm-12 col-xl-12">
+        <div class="bg-light rounded h-100 p-4">
+            <h6 class="mb-4">Add Komponen</h6>
 
-<div class="col-sm-12 col-xl-12">
-    <div class="bg-light rounded h-100 p-4">
-        <h6 class="mb-4">Add Komponen</h6>
-        <form>
-            <div class="mb-3">
-                <label for="name" class="form-label">Nama Komponen</label>
-                <input type="text" class="form-control" wire:model="name" value=" {{ @old('name') }}" id="name"
-                    aria-describedby="emailHelp">
-                @error('name')
-                    <div class="form-text text-danger">{{ $message }}</div>
-                @enderror
-            </div>
+            <form wire:submit.prevent="store">
+                @foreach ($komponens as $index => $komponen)
+                    <div class="mb-3 d-flex align-items-center gap-2">
+                        <input type="text"
+                               class="form-control"
+                               placeholder="Nama Komponen"
+                               wire:model="komponens.{{ $index }}.name">
+                        @if(count($komponens) > 1)
+                            <button type="button" class="btn btn-danger btn-sm" wire:click="removeField({{ $index }})">Hapus</button>
+                        @endif
+                    </div>
+                    @error('komponens.'.$index.'.name')
+                        <div class="form-text text-danger">{{ $message }}</div>
+                    @enderror
+                @endforeach
 
-            <button type="button" wire:click="store" class="btn btn-primary">Save</button>
-        </form>
+                <button type="button" wire:click="addField" class="btn btn-secondary btn-sm mb-3">+ Tambah Komponen</button>
+                <br>
+                <button type="submit" class="btn btn-primary">Simpan Semua</button>
+            </form>
+        </div>
     </div>
 </div>
-</div>
-</div>
-

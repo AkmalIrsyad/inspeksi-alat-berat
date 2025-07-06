@@ -19,24 +19,14 @@ class SupervisorController extends Controller
         ];
          // Ambil data untuk Chart
     $statusData = [
-        'approved' => Inspeksi::where('status', 'approved')->count(),
-        'cancel'   => Inspeksi::where('status', 'cancel')->count(),
-        'pending'  => Inspeksi::where('status', 'pending')->count(),
+        'Approved' => Inspeksi::where('status', 'Approved')->count(),
+        'Cancel'   => Inspeksi::where('status', 'Cancel')->count(),
+        'Pending'  => Inspeksi::where('status', 'Pending')->count(),
     ];
         //
-        $jnsAlatberat = [
-        'Excavator' => Inspeksi::where('status', 'Excavator')->count(),
-        'Bulldozer'   => Inspeksi::where('status', 'Bulldozer')->count(),
-        'Crane'  => Inspeksi::where('status', 'Crane')->count(),
-        'Wheel Loader'  => Inspeksi::where('status', 'Wheel Loader')->count(),
-        'Forklift'  => Inspeksi::where('status', 'Forklift')->count(),
-        'Grader'  => Inspeksi::where('status', 'Grader')->count(),
-        'Dump Truck'  => Inspeksi::where('status', 'Dump Truck')->count(),
-        'Paver'  => Inspeksi::where('status', 'Paver')->count(),
-        'Roller Compactor'  => Inspeksi::where('status', 'Roller Compactor')->count(),
-    ];
 
 
-        return view('supervisor.index',compact('data','jnsAlatberat','statusData'));
+
+        return view('supervisor.index',compact('data','statusData'));
     }
 }

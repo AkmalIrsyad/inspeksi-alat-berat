@@ -261,10 +261,11 @@
                                 </div>
                                 <div class="col-md-6 text-md-end mt-2 mt-md-0">
                                     <div class="d-flex justify-content-md-end justify-content-start gap-2">
-                                        <button onclick="window.print()" class="btn btn-outline-secondary btn-sm">
-                                            <i class="fas fa-print me-1"></i>
-                                            Print
-                                        </button>
+                                              <a href="{{ route('inspector.inspeksi.exportPdf', $inspeksi->id) }}"
+                                           class="btn btn-danger btn-sm">
+                                            <i class="fas fa-download me-1"></i>
+                                            Unduh PDF
+                                        </a>
                                         {{-- <a href="{{ route('inspeksi.index') }}" class="btn btn-primary btn-sm">
                                             <i class="fas fa-list me-1"></i>
                                             Lihat Semua

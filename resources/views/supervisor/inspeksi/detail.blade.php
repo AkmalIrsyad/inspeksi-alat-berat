@@ -70,14 +70,14 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-12 mb-3">
-                                    <div class="border-start border-{{ $inspeksi->status == 'OK' ? 'success' : 'warning' }} border-4 ps-3">
+                                    <div class="border-start border-{{ $inspeksi->status == 'Approved' ? 'success' : 'warning' }} border-4 ps-3">
                                         <h6 class="text-muted mb-1">
                                             <i class="fas fa-chart-line me-1"></i>
                                             Status Umum
                                         </h6>
                                         <p class="mb-0">
-                                            <span class="badge bg-{{ $inspeksi->status == 'OK' ? 'success' : 'warning' }} fs-6">
-                                                <i class="fas fa-{{ $inspeksi->status == 'OK' ? 'check-circle' : 'exclamation-triangle' }} me-1"></i>
+                                            <span class="badge bg-{{ $inspeksi->status == 'Approved' ? 'success' : 'warning' }} fs-6">
+                                                <i class="fas fa-{{ $inspeksi->status == 'Approved' ? 'check-circle' : 'exclamation-triangle' }} me-1"></i>
                                                 {{ $inspeksi->status }}
                                             </span>
                                         </p>
@@ -222,7 +222,7 @@
                         </div>
                     </div>
                 </div>
-            </div>      
+            </div>
         </div>
     </div>
 </div>
