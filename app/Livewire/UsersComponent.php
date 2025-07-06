@@ -56,7 +56,7 @@ class UsersComponent extends Component
         $this->reset();
     }
     public function destroy($id){
-        $users = User::find($id);
+        $users = User::findOrFail($id);
         unlink(public_path('storage/users/'.$users->foto));
         $users->delete();
         session()->flash('success','Berhasil Hapus Data');

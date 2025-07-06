@@ -30,7 +30,7 @@
                             <td>
                                 @if($data->id !== auth()->id())
                                 <button class="btn btn-info" wire:click="edit({{ $data->id }})" >Edit</button>
-                                <button class="btn btn-danger" wire:click="destroy({{ $data->id }})">Delete</button>
+                                <button class="btn btn-danger" wire:click="destroy({{ $data->id}})">Delete</button>
                             @else
                             <span class="text-muted">Tidak tersedia</span>
                             @endif

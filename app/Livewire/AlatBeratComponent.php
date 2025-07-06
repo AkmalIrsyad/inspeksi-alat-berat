@@ -87,7 +87,7 @@ class AlatBeratComponent extends Component
 
     public function destroy($id)
     {
-        $alatBerat = AlatBerat::find($id);
+        $alatBerat = AlatBerat::findOrFail($id);
         unlink(public_path('storage/alatberat/'.$alatBerat->foto));
         $alatBerat->delete();
         session()->flash('success','Berhasil Hapus');
