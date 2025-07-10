@@ -5,94 +5,124 @@ namespace App\Livewire;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
-use Livewire\WithoutUrlPagination;
 use Livewire\WithPagination;
 use Livewire\WithFileUploads;
-use PhpParser\Node\Expr\FuncCall;
 
 class UsersComponent extends Component
 {
-    use WithPagination,WithoutUrlPagination,WithFileUploads;
+    use WithPagination, WithFileUploads;
+
     protected $paginationTheme = 'bootstrap';
-    public $addPage,$editPage =false;
-    public $name,$email,$password,$role,$id,$foto;
+
+    public $addPage = false, $editPage = false;
+    public $name, $email, $password, $role, $id, $foto;
+    public $search = '';
+
     public function render()
     {
-        $data['user']= User::paginate(5);
+        $data['user'] = User::where('name', 'like', '%' . $this->search . '%')
+            ->orWhere('email', 'like', '%' . $this->search . '%')
+            ->orderBy('name')
+            ->paginate(5);
+
         return view('livewire.users-component', $data);
     }
+
     public function create()
     {
         $this->reset();
         $this->addPage = true;
     }
+
     public function store()
     {
         $this->validate([
-            'name'=>'required',
-            'email'=> 'required|email',
-            'password'=>'required',
-            'role'=>'required',
-            'foto'=>'required|image',
-        ],[
-            'name.required'=>'nama Tidak boleh Kosong',
-            'email.required'=>'email Tidak boleh kosong',
-            'email.email'=>'Format email salah',
-            'password.required'=>'Password Tidak Boleh Kosong',
-            'role.required'=>'role tidak boleh kosong',
-            'foto.required'=>'foto tidak boleh kosong',
-            'foto.image'=>'foto dalam format image',
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required',
+            'role' => 'required',
+            'foto' => 'required|image',
+        ], [
+            'name.required' => 'Nama tidak boleh kosong',
+            'email.required' => 'Email tidak boleh kosong',
+            'email.email' => 'Format email salah',
+            'email.unique' => 'Email sudah digunakan',
+            'password.required' => 'Password tidak boleh kosong',
+            'role.required' => 'Role tidak boleh kosong',
+            'foto.required' => 'Foto tidak boleh kosong',
+            'foto.image' => 'Foto harus berupa gambar',
         ]);
 
-         $this->foto->storeAs('users', $this->foto->hashName(),'public');
+        $this->foto->storeAs('users', $this->foto->hashName(), 'public');
+
         User::create([
-            'name'=>$this->name,
-            'email'=>$this->email,
-            'password'=>Hash::make($this->password),
-            'role'=>$this->role,
-            'foto'=>$this->foto->hashName()
+            'name' => $this->name,
+            'email' => $this->email,
+            'password' => Hash::make($this->password),
+            'role' => $this->role,
+            'foto' => $this->foto->hashName()
         ]);
-        session()->flash('success', 'Berhasi Simpan Data');
+
+        session()->flash('success', 'Berhasil Simpan Data');
         $this->reset();
     }
-    public function destroy($id){
-        $users = User::findOrFail($id);
-        unlink(public_path('storage/users/'.$users->foto));
-        $users->delete();
-        session()->flash('success','Berhasil Hapus Data');
+
+    public function destroy($id)
+    {
+        $user = User::findOrFail($id);
+        if ($user->foto && file_exists(public_path('storage/users/' . $user->foto))) {
+            unlink(public_path('storage/users/' . $user->foto));
+        }
+        $user->delete();
+        session()->flash('success', 'Berhasil Hapus Data');
         $this->reset();
     }
+
     public function edit($id)
     {
         $this->reset();
-        $users=User::find($id);
-        $this->name = $users->name;
-        $this->email = $users->email;
-        $this->role = $users->role;
-        $this->id = $users->id;
+        $user = User::findOrFail($id);
+        $this->name = $user->name;
+        $this->email = $user->email;
+        $this->role = $user->role;
+        $this->id = $user->id;
         $this->editPage = true;
     }
+
     public function update()
     {
-        $users = User::find($this->id);
-        if (empty($this->foto)) {
-            $users->update([
-                'name'=>$this->name,
-                'email'=>$this->email,
-                'role'=>$this->role,
-            ]);
-        }else{
-            unlink(public_path('storage/users/' . $users->foto));
-            $this->foto->storeAs('users', $this->foto->hashName(),'public');
-            $users->update([
-                'name'=>$this->name,
-                'email'=>$this->email,
-                'role'=> $this->role,
-                'foto' => $this->foto->hashName()
-            ]);
+        $this->validate([
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email,' . $this->id,
+            'role' => 'required',
+            'foto' => 'nullable|image',
+        ], [
+            'name.required' => 'Nama tidak boleh kosong',
+            'email.required' => 'Email tidak boleh kosong',
+            'email.email' => 'Format email salah',
+            'email.unique' => 'Email sudah digunakan oleh user lain',
+            'role.required' => 'Role tidak boleh kosong',
+            'foto.image' => 'Foto harus berupa gambar',
+        ]);
+
+        $user = User::findOrFail($this->id);
+
+        if ($this->foto) {
+            if ($user->foto && file_exists(public_path('storage/users/' . $user->foto))) {
+                unlink(public_path('storage/users/' . $user->foto));
+            }
+            $this->foto->storeAs('users', $this->foto->hashName(), 'public');
+            $user->foto = $this->foto->hashName();
         }
 
-        session()->flash('success','Berhasil Ubah Data!');
+        $user->update([
+            'name' => $this->name,
+            'email' => $this->email,
+            'role' => $this->role,
+            'foto' => $user->foto,
+        ]);
+
+        session()->flash('success', 'Berhasil Ubah Data!');
         $this->reset();
     }
 }

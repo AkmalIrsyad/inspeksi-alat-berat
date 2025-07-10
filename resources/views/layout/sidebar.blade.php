@@ -21,17 +21,19 @@
 
         <div class="navbar-nav w-100">
             @if ($user->role === 'supervisor')
-                <a href="{{ route('supervisor.index') }}" class="nav-item nav-link"><i class="fa fa-users me-2"></i>Dashboard</a>
+                <a href="{{ route('supervisor.index') }}" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                 <a href="{{ route('users') }}" class="nav-item nav-link"><i class="fa fa-users me-2"></i>Manajemen User</a>
-                <a href="{{ route('supervisor.inspeksi.index') }}" class="nav-item nav-link"><i class="fa fa-users me-2"></i>Cek Inspeksi</a>
-                <a href="{{ route('alat-berat') }}" class="nav-item nav-link"><i class="fa fa-cogs me-2"></i>Alat Berat</a>
+                <a href="{{ route('supervisor.inspeksi.index') }}" class="nav-item nav-link"><i class="fa fa-check-circle me-2"></i>Cek Inspeksi</a>
+                <a href="{{ route('alat-berat') }}" class="nav-item nav-link"><i class="fa fa-snowplow me-2"></i>Alat Berat</a>
                 <a href="{{ route('komponen') }}" class="nav-item nav-link"><i class="fa fa-tools me-2"></i>Komponen</a>
+                <a href="{{ route('artikels.index') }}" class="nav-item nav-link"><i class="fa fa-sign me-2"></i>Artikel Panduan</a>
                 <a href="{{ route('supervisor.profile.edit') }}" class="nav-item nav-link"><i class="fa fa-user me-2"></i>Edit Profil</a>
             @elseif ($user->role === 'inspector')
-                <a href="{{ route('inspektor.index') }}" class="nav-item nav-link"><i class="fa fa-users me-2"></i>Dashboard</a>
-                <a href="{{ route('inspeksi') }}" class="nav-item nav-link"><i class="fa fa-wrench me-2"></i>Riwayat Inspeksi</a>
+                <a href="{{ route('inspektor.index') }}" class="nav-item nav-link"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                <a href="{{ route('inspeksi') }}" class="nav-item nav-link"><i class="fa fa-history me-2"></i>Riwayat Inspeksi</a>
                 <a href="{{ route('inspeksi.create') }}" class="nav-item nav-link"><i class="fa fa-wrench me-2"></i>Inspeksi</a>
-                <a href="{{ route('inspektor.profile.edit') }}" class="nav-item nav-link"><i class="fa fa-wrench me-2"></i>Edit Profile</a>
+                <a href="{{ route('inspektor.artikel.index') }}" class="nav-item nav-link"><i class="fa fa-sign me-2"></i>Artikel Panduan</a>
+                <a href="{{ route('inspektor.profile.edit') }}" class="nav-item nav-link"><i class="fa fa-user me-2"></i>Edit Profile</a>
             @endif
             <a href="{{ route('login.keluar') }}" class="nav-item nav-link text-danger"><i class="fa fa-sign-out-alt me-2"></i>Logout</a>
         </div>

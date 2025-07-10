@@ -40,11 +40,14 @@
                             </form>
                             <form action="{{ route('supervisor.inspeksi.cancel', $inspeksi->id) }}" method="POST" class="d-inline">
                                 @csrf
-                                <button class="btn btn-danger btn-sm" onclick="return confirm('Yakin batalkan?')">Batalkan</button>
+                                <button class="btn btn-warning btn-sm" onclick="return confirm('Yakin batalkan?')">Batalkan</button>
                             </form>
-                        @else
-                            <small>Tidak ada aksi</small>
                         @endif
+                        <form action="{{ route('supervisor.inspeksi.destroy', $inspeksi->id) }}" method="POST" class="d-inline">
+                            @csrf
+                            @method('DELETE')
+                            <button class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus inspeksi ini?')">Hapus</button>
+                            </form>
                     </td>
                     <td>
                     <a href="{{ route('supervisor.inspeksi.detail', $inspeksi->id) }}" class="btn btn-primary btn-sm">Detail</a>

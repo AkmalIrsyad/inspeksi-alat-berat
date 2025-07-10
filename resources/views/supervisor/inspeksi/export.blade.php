@@ -192,7 +192,7 @@
 <body>
     <div class="header">
         <h1>LAPORAN DETAIL INSPEKSI</h1>
-        <div class="subtitle">Sistem Manajemen Alat Berat</div>
+        <div class="subtitle">Walk Around Inspection</div>
     </div>
 
     <div class="info-section">
@@ -206,7 +206,7 @@
                 <span>{{ $inspeksi->created_at->format('d M Y') }}</span>
             </div>
             <div class="info-item">
-                <label>Alat Berat:</label>
+                <label>Merk:</label>
                 <span>{{ $inspeksi->alatBerat->merk }}</span>
             </div>
                 <div class="info-item">

@@ -1,19 +1,18 @@
 <?php
 
+use App\Http\Controllers\ArtikelController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InspectorController;
 use App\Http\Controllers\InspeksiController;
+use App\Http\Controllers\InspektorArtikelController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SupervisorController;
 use App\Http\Controllers\SupervisorInspeksiController;
 use App\Http\Middleware\RoleMiddleware;
-use App\Livewire\LaporanInspeksi;
 use Illuminate\Support\Facades\Route;
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+
 
 Route::get('/',[HomeController::class,'index'])->name('home')->middleware('auth');
 Route::get('register',[RegisterController::class,'index'])->name('register');
@@ -27,7 +26,7 @@ Route::get('login/keluar',[LoginController::class,'keluar'])->name('login.keluar
 // });
 
 Route::prefix('inspector')->middleware(['auth', RoleMiddleware::class . ':inspector'])->group(function () {
-    Route::get('/inspector', [InspectorController::class, 'index'])->name('inspektor.index');
+    Route::get('/dashboard', [InspectorController::class, 'index'])->name('inspektor.index');
     Route::get('/inspeksi',function(){
         return view('inspektor.inspeksi.index');
     })->name('inspeksi');
@@ -41,6 +40,14 @@ Route::prefix('inspector')->middleware(['auth', RoleMiddleware::class . ':inspec
     Route::get('/profile/edit', function(){
         return view('inspektor.profile.edit');
     })->name('inspektor.profile.edit');
+
+    Route::get('/artikels', [InspektorArtikelController::class, 'index'])->name('inspektor.artikel.index');
+    Route::get('/artikels/{id}', [InspektorArtikelController::class, 'show'])->name('inspektor.artikel.show');
+
+    Route::get('/panduan', function () {
+    return view('inspektor.panduan');
+    })->name('inspektor.panduan');
+
 });
 
 Route::prefix('supervisor')->middleware(['auth', RoleMiddleware::class . ':supervisor'])->group(function () {
@@ -62,6 +69,8 @@ Route::prefix('supervisor')->middleware(['auth', RoleMiddleware::class . ':super
     Route::post('/inspeksi/{id}/cancel',[SupervisorInspeksiController::class,'cancel'])->name('supervisor.inspeksi.cancel');
     Route::get('/inspeksi/{id}/detail',[SupervisorInspeksiController::class,'show'])->name('supervisor.inspeksi.detail');
     Route::get('/inspeksi/{id}/export-pdf',[SupervisorInspeksiController::class,'exportPdf'])->name('supervisor.inspeksi.exportPdf');
+    Route::delete('/inspeksi/{id}/destroy', [SupervisorInspeksiController::class, 'destroy'])->name('supervisor.inspeksi.destroy');
+
 
 
     Route::get('/profile/edit', function(){
@@ -74,5 +83,6 @@ Route::prefix('supervisor')->middleware(['auth', RoleMiddleware::class . ':super
         return view('supervisor.komponen.index');
     })->name('komponen');
 
+    Route::resource('/artikels', ArtikelController::class);
 });
 

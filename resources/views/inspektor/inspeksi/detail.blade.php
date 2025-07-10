@@ -23,14 +23,11 @@
                     </nav>
                 </div>
                 <div>
-                    <button onclick="window.print()" class="btn btn-outline-secondary me-2">
-                        <i class="fas fa-print me-1"></i>
-                        Print
-                    </button>
-                    {{-- <a href="{{ route('inspeksi.index') }}" class="btn btn-outline-primary">
-                        <i class="fas fa-arrow-left me-1"></i>
-                        Kembali
-                    </a> --}}
+                     <a href="{{ route('inspector.inspeksi.exportPdf', $inspeksi->id) }}"
+                     class="btn btn-danger btn-sm">
+                    <i class="fas fa-download me-1"></i>
+                    Unduh PDF
+                    </a>
                 </div>
             </div>
 
@@ -66,12 +63,12 @@
                                         <div class="flex-shrink-0 me-3">
                                             <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center"
                                                  style="width: 50px; height: 50px;">
-                                                <i class="fas fa-excavator text-white"></i>
+                                                <i class="fas fa-snowplow text-white"></i>
                                             </div>
                                         </div>
                                         <div class="flex-grow-1">
                                             <h6 class="text-muted mb-1">
-                                                <i class="fas fa-truck me-1"></i>
+                                                <i class="fas fa-snowplow me-1"></i>
                                                 Alat Berat
                                             </h6>
                                             <p class="mb-0 fw-bold fs-5">
@@ -106,9 +103,9 @@
                                 <div class="col-lg-6 col-md-12 mb-3">
                                     <div class="d-flex align-items-start">
                                         <div class="flex-shrink-0 me-3">
-                                            <div class="bg-{{ $inspeksi->status == 'OK' ? 'success' : 'warning' }} rounded-circle d-flex align-items-center justify-content-center"
+                                            <div class="bg-{{ $inspeksi->status == 'Approved' ? 'success' : 'warning' }} rounded-circle d-flex align-items-center justify-content-center"
                                                  style="width: 50px; height: 50px;">
-                                                <i class="fas fa-{{ $inspeksi->status == 'OK' ? 'check-circle' : 'exclamation-triangle' }} text-white"></i>
+                                                <i class="fas fa-{{ $inspeksi->status == 'Approved' ? 'check-circle' : 'exclamation-triangle' }} text-white"></i>
                                             </div>
                                         </div>
                                         <div class="flex-grow-1">
@@ -117,8 +114,8 @@
                                                 Status Inspeksi
                                             </h6>
                                             <p class="mb-0">
-                                                <span class="badge bg-{{ $inspeksi->status == 'OK' ? 'success' : 'warning' }} fs-6">
-                                                    <i class="fas fa-{{ $inspeksi->status == 'OK' ? 'check' : 'exclamation' }} me-1"></i>
+                                                <span class="badge bg-{{ $inspeksi->status == 'Approved' ? 'success' : 'warning' }} fs-6">
+                                                    <i class="fas fa-{{ $inspeksi->status == 'Approved' ? 'check' : 'exclamation' }} me-1"></i>
                                                     {{ $inspeksi->status }}
                                                 </span>
                                             </p>
@@ -266,10 +263,6 @@
                                             <i class="fas fa-download me-1"></i>
                                             Unduh PDF
                                         </a>
-                                        {{-- <a href="{{ route('inspeksi.index') }}" class="btn btn-primary btn-sm">
-                                            <i class="fas fa-list me-1"></i>
-                                            Lihat Semua
-                                        </a> --}}
                                     </div>
                                 </div>
                             </div>

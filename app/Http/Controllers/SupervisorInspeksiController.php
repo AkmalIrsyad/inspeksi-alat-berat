@@ -47,4 +47,16 @@ class SupervisorInspeksiController extends Controller
 
     return $pdf->download('Inspeksi-' . $inspeksi->id . '.pdf');
 }
+
+    public function destroy($id)
+{
+    $inspeksi = Inspeksi::findOrFail($id);
+
+    // Jika ada relasi lain yang perlu dihapus juga, tambahkan di sini (misalnya: $inspeksi->komponens()->delete();)
+
+    $inspeksi->delete();
+
+    return redirect()->back()->with('success', 'Data inspeksi berhasil dihapus.');
+}
+
 }

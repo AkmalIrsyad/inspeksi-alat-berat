@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('alat_berats', function (Blueprint $table) {
+        Schema::create('artikels', function (Blueprint $table) {
             $table->id();
-            $table->string('merk');
-            $table->string('serial_number');
-            $table->enum('jenis', ['Excavator', 'Bulldozer','Crane','Wheel Loader','Forklift','Grader','Dump Truck','Paver','Roller Compactor']);
-            $table->text('foto')->nullable();
+             $table->string('judul');
+            $table->text('konten');
+            $table->string('foto')->nullable(); // path gambar
             $table->timestamps();
         });
     }
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('alat_berats');
+        Schema::dropIfExists('artikels');
     }
 };

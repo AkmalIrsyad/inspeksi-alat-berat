@@ -21,77 +21,6 @@
                 </div>
             </div>
 
-            {{-- Statistics Cards --}}
-            @php
-                $totalInspeksi = $inspeksis->count();
-                $statusOK = $inspeksis->where('status', 'OK')->count();
-                $statusNO = $inspeksis->where('status', 'NO')->count();
-                $inspeksiHariIni = $inspeksis->where('created_at', '>=', today())->count();
-            @endphp
-
-            <div class="row mb-4">
-                <div class="col-lg-3 col-md-6 mb-3">
-                    <div class="card bg-primary text-white h-100">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <h6 class="card-title text-white-50 mb-1">Total Inspeksi</h6>
-                                    <h3 class="mb-0">{{ $totalInspeksi }}</h3>
-                                </div>
-                                <div class="text-white-50">
-                                    <i class="fas fa-clipboard-list fa-2x"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 mb-3">
-                    <div class="card bg-success text-white h-100">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <h6 class="card-title text-white-50 mb-1">Status OK</h6>
-                                    <h3 class="mb-0">{{ $statusOK }}</h3>
-                                </div>
-                                <div class="text-white-50">
-                                    <i class="fas fa-check-circle fa-2x"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 mb-3">
-                    <div class="card bg-warning text-white h-100">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <h6 class="card-title text-white-50 mb-1">Perlu Perhatian</h6>
-                                    <h3 class="mb-0">{{ $statusNO }}</h3>
-                                </div>
-                                <div class="text-white-50">
-                                    <i class="fas fa-exclamation-triangle fa-2x"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 mb-3">
-                    <div class="card bg-info text-white h-100">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <h6 class="card-title text-white-50 mb-1">Hari Ini</h6>
-                                    <h3 class="mb-0">{{ $inspeksiHariIni }}</h3>
-                                </div>
-                                <div class="text-white-50">
-                                    <i class="fas fa-calendar-day fa-2x"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             {{-- Table Section --}}
             <div class="card shadow-sm">
                 <div class="card-header bg-dark text-white">
@@ -101,6 +30,9 @@
                             Daftar Riwayat Inspeksi
                         </h5>
                         <span class="badge bg-light text-dark">
+                            @php
+                            $totalInspeksi = $inspeksis->count();
+                               @endphp
                             {{ $totalInspeksi }} Inspeksi
                         </span>
                     </div>
@@ -117,7 +49,7 @@
                                             Tanggal & Waktu
                                         </th>
                                         <th scope="col" style="width: 35%;">
-                                            <i class="fas fa-excavator me-1"></i>
+                                            <i class="fas fa-snowplow me-1"></i>
                                             Alat Berat
                                         </th>
                                         <th scope="col" style="width: 20%;" class="text-center">
@@ -153,7 +85,7 @@
                                                     <div class="flex-shrink-0 me-3">
                                                         <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center"
                                                              style="width: 40px; height: 40px;">
-                                                            <i class="fas fa-truck text-white"></i>
+                                                            <i class="fas fa-snowplow text-white"></i>
                                                         </div>
                                                     </div>
                                                     <div class="flex-grow-1">
@@ -169,10 +101,10 @@
                                                 </div>
                                             </td>
                                             <td class="text-center">
-                                                @if($inspeksi->status == 'OK')
+                                                @if($inspeksi->status == 'Approved')
                                                     <span class="badge bg-success px-3 py-2">
                                                         <i class="fas fa-check-circle me-1"></i>
-                                                        OK
+                                                    {{ $inspeksi->status }}
                                                     </span>
                                                 @else
                                                     <span class="badge bg-warning px-3 py-2">
@@ -190,29 +122,6 @@
                                                         <i class="fas fa-eye me-1"></i>
                                                         Detail
                                                     </a>
-                                                    <button type="button"
-                                                            class="btn btn-outline-secondary btn-sm dropdown-toggle dropdown-toggle-split"
-                                                            data-bs-toggle="dropdown">
-                                                        <span class="visually-hidden">Toggle Dropdown</span>
-                                                    </button>
-                                                    <ul class="dropdown-menu">
-                                                        <li>
-                                                            <a class="dropdown-item" href="{{ route('inspeksi.detail', $inspeksi->id) }}">
-                                                                <i class="fas fa-eye me-2"></i>Lihat Detail
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <a class="dropdown-item" href="#">
-                                                                <i class="fas fa-file-pdf me-2"></i>Export PDF
-                                                            </a>
-                                                        </li>
-                                                        <li><hr class="dropdown-divider"></li>
-                                                        <li>
-                                                            <a class="dropdown-item text-muted" href="#">
-                                                                <i class="fas fa-share me-2"></i>Bagikan
-                                                            </a>
-                                                        </li>
-                                                    </ul>
                                                 </div>
                                             </td>
                                         </tr>
@@ -246,22 +155,6 @@
                                 Menampilkan {{ $inspeksis->count() }} dari {{ $totalInspeksi }} total inspeksi
                             </small>
                         </div>
-                        <div class="col-md-6 text-md-end mt-2 mt-md-0">
-                            <div class="btn-group btn-group-sm">
-                                <button class="btn btn-outline-secondary">
-                                    <i class="fas fa-filter me-1"></i>
-                                    Filter
-                                </button>
-                                <button class="btn btn-outline-secondary">
-                                    <i class="fas fa-sort me-1"></i>
-                                    Urutkan
-                                </button>
-                                <button class="btn btn-outline-secondary">
-                                    <i class="fas fa-download me-1"></i>
-                                    Export
-                                </button>
-                            </div>
-                        </div>
                     </div>
                 </div>
                 @endif
@@ -269,13 +162,3 @@
         </div>
     </div>
 </div>
-
-{{-- Initialize Tooltips --}}
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-    var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
-        return new bootstrap.Tooltip(tooltipTriggerEl);
-    });
-});
-</script>

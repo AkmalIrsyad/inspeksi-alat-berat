@@ -44,6 +44,7 @@
             </div>
         </div>
     </div>
+
     @if ($addPage)
     @include('supervisor.users.create')
     @endif
