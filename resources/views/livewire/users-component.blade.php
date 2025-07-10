@@ -30,7 +30,7 @@
                             <td>{{ $data->role }}</td>
                             <td>
                                 <img src="{{ asset('storage/users/' . $data->foto) }}"
-                                alt="{{ $data->merk }}"
+                                alt="{{ $data->name }}"
                                  style="max-width: 120px; height: auto;" class="img-fluid rounded">
                             </td>
                             <td>
