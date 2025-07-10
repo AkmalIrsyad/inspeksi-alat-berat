@@ -12,9 +12,10 @@
                     <thead>
                         <tr>
                             <th scope="col">No</th>
-                            <th scope="col">Name</th>
+                            <th scope="col">Nama</th>
                             <th scope="col">Email</th>
                             <th scope="col">Role</th>
+                            <th scope="col">Foto</th>
                             <th>
                                 Aksi
                             </th>
@@ -27,6 +28,11 @@
                             <td>{{ $data->name }}</td>
                             <td>{{ $data->email }}</td>
                             <td>{{ $data->role }}</td>
+                            <td>
+                                <img src="{{ asset('storage/users/' . $data->foto) }}"
+                                alt="{{ $data->merk }}"
+                                 style="max-width: 120px; height: auto;" class="img-fluid rounded">
+                            </td>
                             <td>
                                 @if($data->id !== auth()->id())
                                 <button class="btn btn-info" wire:click="edit({{ $data->id }})" >Edit</button>

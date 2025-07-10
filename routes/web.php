@@ -47,7 +47,6 @@ Route::prefix('inspector')->middleware(['auth', RoleMiddleware::class . ':inspec
     Route::get('/panduan', function () {
     return view('inspektor.panduan');
     })->name('inspektor.panduan');
-
 });
 
 Route::prefix('supervisor')->middleware(['auth', RoleMiddleware::class . ':supervisor'])->group(function () {
