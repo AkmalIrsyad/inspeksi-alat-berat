@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('merk');
             $table->string('serial_number');
-            $table->enum('jenis', ['Excavator', 'Bulldozer','Crane','Wheel Loader','Forklift','Grader','Dump Truck','Paver','Roller Compactor']);
+            $table->enum('jenis', ['Excavator','Wheel Loader','Forklift']);
             $table->text('foto')->nullable();
             $table->timestamps();
         });

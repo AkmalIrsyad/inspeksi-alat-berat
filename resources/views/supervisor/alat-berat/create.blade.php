@@ -30,7 +30,7 @@
                         <label class="form-label">Jenis</label>
                         <select class="form-select" wire:model="jenis">
                             <option value="">---Pilih---</option>
-                            @foreach(['Excavator','Bulldozer','Crane','Wheel Loader','Forklift','Grader','Dump Truck','Paver','Roller Compactor'] as $j)
+                            @foreach(['Excavator','Wheel Loader','Forklift'] as $j)
                                 <option value="{{ $j }}">{{ $j }}</option>
                             @endforeach
                         </select>
